@@ -61,23 +61,25 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="saved"
-        options={{
-          title: "",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => {
-            return <TabIcon focused={focused} icon={icons.save} title="Home" />;
-          },
-        }}
-      />
-      <Tabs.Screen
         name="search"
         options={{
           title: "",
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
-              <TabIcon focused={focused} icon={icons.search} title="Home" />
+              <TabIcon focused={focused} icon={icons.save} title="Search" />
+            );
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: "",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <TabIcon focused={focused} icon={icons.search} title="Saved" />
             );
           },
         }}
@@ -89,7 +91,7 @@ const TabLayout = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
-              <TabIcon focused={focused} icon={icons.person} title="Home" />
+              <TabIcon focused={focused} icon={icons.person} title="Profile" />
             );
           },
         }}

@@ -1,5 +1,5 @@
 import { Movies } from "@/types/movie";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const BASE_URL = "https://imdb236.p.rapidapi.com/api/imdb/top250-movies";
 
@@ -13,11 +13,10 @@ const getOptions = (url: string = BASE_URL) => ({
   timeout: 10000, // 10 seconds
 });
 
-export async function fetchMovies(
-  url?: string
-): Promise<AxiosResponse<Movies[]>> {
+export async function fetchMovies(url?: string): Promise<Movies[]> {
   try {
     const response = await axios.request(getOptions(url));
+    console.log("response:", response.data);
     return response.data;
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
