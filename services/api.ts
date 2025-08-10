@@ -1,21 +1,31 @@
-import axios from "axios";
+import { Movies } from "@/types/movie";
+import axios, { AxiosResponse } from "axios";
 
-const options = {
+const BASE_URL = "https://imdb236.p.rapidapi.com/api/imdb/top250-movies";
+
+const getOptions = (url: string = BASE_URL) => ({
   method: "GET",
-  url: "https://imdb236.p.rapidapi.com/api/imdb/top250-movies",
+  url,
   headers: {
     "x-rapidapi-key": process.env.EXPO_PUBLIC_RAPID_API_KEY!,
     "x-rapidapi-host": process.env.EXPO_PUBLIC_RAPID_HOST_KEY!,
   },
-};
+  timeout: 10000, // 10 seconds
+});
 
-export async function fetchMovies() {
+export async function fetchMovies(
+  url?: string
+): Promise<AxiosResponse<Movies[]>> {
   try {
-    const response = await axios.request(options);
-    return response;
+    const response = await axios.request(getOptions(url));
+    return response.data;
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message, error.response?.data);
+      console.error("Axios error:", {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
       throw new Error(
         `Failed to fetch movies: ${error.response?.data?.message || error.message}`
       );
